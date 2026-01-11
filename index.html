@@ -197,25 +197,38 @@ body{
 /* ===== ALBUM ===== */
 .album-grid{
   display:grid;
-  grid-template-columns:repeat(3,1fr);
+  grid-template-columns:repeat(auto-fill, minmax(260px, 1fr));
   gap:12px;
-  margin-top:20px;
 }
+
+
 .album-grid img{
   width:100%;
-  aspect-ratio: 3 / 4;
-  object-fit: cover;
-  image-rendering: auto;
+  aspect-ratio:3 / 4;
+  object-fit:cover;
+
+  /* 🔥 NÉT HƠN TRÊN DESKTOP */
+  image-rendering:-webkit-optimize-contrast;
+  backface-visibility:hidden;
+  transform:translateZ(0);
+  will-change:transform;
+
+  transition:transform .35s ease;
 }
 
+/* hover nhẹ – không blur */
 .album-grid img:hover{
-  transform:scale(1.06);
+  transform:scale(1.03) translateZ(0);
 }
 
-@media (hover:hover){
-  .album-grid img:hover{
-    transform:scale(1.06);
+/* chỉ tăng nét cho PC */
+@media (min-width:1024px){
+  .album-grid img{
+    filter:contrast(1.05) saturate(1.05);
   }
+}
+.album-grid img{
+  image-rendering:auto;
 }
 
 /* ===== LIGHTBOX ===== */
@@ -536,7 +549,7 @@ body{
       <p><b>Chú rể<br>Phêrô Hoàng Anh</b></p>
     </div>
     <div>
-      <img src="0B9A3041.jpeg" style="width:120px; border-radius:50%;">
+      <img src="cd.jpeg" style="width:120px; border-radius:50%;">
       <p><b>Cô dâu<br>Maria Phạm Nguyệt</b></p>
     </div>
   </div>
@@ -558,12 +571,12 @@ body{
   <!-- ALBUM -->
   <h2>📷 Khoảnh Khắc Hạnh Phúc</h2>
 <div class="album-grid">
-  <img src="DSC03092.jpeg" loading="lazy" onclick="openLightboxByIndex(0)">
-<img src="album2.jpg" onclick="openLightboxByIndex(1)">
-<img src="0B9A2754.jpeg" onclick="openLightboxByIndex(2)">
-<img src="0B9A2930.jpeg" onclick="openLightboxByIndex(3)">
-<img src="0B9A3041.jpeg" onclick="openLightboxByIndex(4)">
-<img src="19.png" onclick="openLightboxByIndex(5)">
+  <img src="5.jpeg" loading="lazy" onclick="openLightboxByIndex(0)">
+<img src="6.jpg" onclick="openLightboxByIndex(1)">
+<img src="7.jpeg" onclick="openLightboxByIndex(2)">
+<img src="8.jpeg" onclick="openLightboxByIndex(3)">
+<img src="9.jpeg" onclick="openLightboxByIndex(4)">
+<img src="1010.png" onclick="openLightboxByIndex(5)">
 </div>
 
 <!-- LỄ -->
@@ -587,6 +600,7 @@ body{
 <a class="btn" target="_blank" href="https://maps.app.goo.gl/imNfpARbGWWLFwrKA?g_st=ipc">🧭 Chỉ đường</a><br>
 <a class="btn blue" target="_blank" href="https://www.google.com/calendar">📅 Thêm vào Google Calendar</a>
 </div>
+
 <!-- RSVP -->
 <h2>📩 Xác Nhận Tham Dự</h2>
 <div class="card" id="rsvpCard">
@@ -698,7 +712,7 @@ openScreen.addEventListener("click", e=>{
 });
 
 
-  const API_URL="https://script.google.com/macros/s/AKfycby6wD33n2ialz9GhUC1cSY5i3sBFAqfsHJBLC9HEWy-MI_Gu7Kv_jH906yKG1aQb22E/exec";
+  const API_URL="https://script.google.com/macros/s/AKfycbxEhUewtom1-wR7EBfAOscvBaESQkSvtHCyODdLFE1lcatmPHuaXu0VUTOVfMwM23g9/exec";
   
 const intro = document.getElementById("intro");
 const introImg = document.getElementById("introImg");
@@ -791,31 +805,38 @@ async function sendRSVP(e){
 // ------------------- OPEN SCREEN + INTRO -------------------
 
 const story=[
-  {img:"DSC02482.jpeg",text:"Từ lần gặp gỡ đầu tiên…"},
-  {img:"DSC02840.jpeg",text:"Hai trái tim chung nhịp đập…"},
-  {img:"DSC02992.jpeg",text:"Và hôm nay…"},
-  {img:"love4.jpg",text:"Chúng con nên duyên vợ chồng 💍"}
+  {img:"1.jpeg",text:"Từ lần gặp gỡ đầu tiên…"},
+  {img:"2.jpeg",text:"Hai trái tim chung nhịp đập…"},
+  {img:"3.jpeg",text:"Và hôm nay…"},
+  {img:"4.jpeg",text:"Chúng con nên duyên vợ chồng 💍"}
 ];
 story.forEach(s=>{
   const img = new Image();
   img.src = s.img;
 });
 function openInvite(){
-  // PHÁT NHẠC NGAY SAU CLICK
+  // 🔊 bật nhạc hợp lệ cho mobile
+  music.muted = false;
   music.volume = 0.7;
-  music.currentTime = 0;
-  music.play().then(()=>{
-    musicStarted = true;
-    musicBtn.innerText = "🔊";
-  }).catch(()=>{});
 
-  // HIỆU ỨNG MỞ THIỆP
+  const playPromise = music.play();
+  if(playPromise !== undefined){
+    playPromise.then(()=>{
+      musicStarted = true;
+      musicBtn.innerText = "🔊";
+    }).catch(()=>{
+      // nếu vẫn bị chặn, hiện thông báo
+      showPopup("🔊 Chạm lần nữa để bật nhạc");
+    });
+  }
+
+  // hiệu ứng mở thiệp
   openScreen.style.opacity = "0";
-setTimeout(()=>{
-  openScreen.style.display = "none";
-  intro.classList.add("show");
-  playStory(0);
-},600);
+  setTimeout(()=>{
+    openScreen.style.display = "none";
+    intro.classList.add("show");
+    playStory(0);
+  },600);
 }
 function playStory(i){
   if(i >= story.length){
@@ -936,14 +957,26 @@ lightbox.addEventListener("click",e=>{
 });
 
 /* Vuốt điện thoại */
-let startX=0;
-lightbox.addEventListener("touchstart",e=>{
+let startX = 0;
+let isPinching = false;
+
+lightbox.addEventListener("touchstart", e=>{
+  // nếu có từ 2 ngón trở lên → đang zoom → bỏ qua swipe
+  if(e.touches.length > 1){
+    isPinching = true;
+    return;
+  }
+  isPinching = false;
   startX = e.touches[0].clientX;
 });
-lightbox.addEventListener("touchend",e=>{
+
+lightbox.addEventListener("touchend", e=>{
+  // nếu vừa zoom thì KHÔNG đổi ảnh
+  if(isPinching) return;
+
   const diff = e.changedTouches[0].clientX - startX;
-  if(diff > 50) prevImg();
-  if(diff < -50) nextImg();
+  if(diff > 60) prevImg();
+  if(diff < -60) nextImg();
 });
 
 async function loadData(){
@@ -1012,6 +1045,15 @@ async function loadData(){
 }
 
 setTimeout(loadData, 800);
+document.addEventListener("touchstart",()=>{
+  if(!musicStarted){
+    music.muted = false;
+    music.play().then(()=>{
+      musicStarted = true;
+      musicBtn.innerText="🔊";
+    }).catch(()=>{});
+  }
+},{once:true});
 </script>
 </body>
 </html>
