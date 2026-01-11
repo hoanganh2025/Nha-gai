@@ -479,7 +479,25 @@ body{
     height:clamp(180px, 70vw, 240px);
   }
 }
+.avatar{
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  object-fit:cover;
+  object-position:center;
 
+  /* 🎨 KHUNG ẢNH */
+  border:4px solid #fff;
+  outline:3px solid #f2b6c1;
+  outline-offset:3px;
+
+  /* ✨ ĐỔ BÓNG */
+  box-shadow:0 6px 14px rgba(0,0,0,.25);
+
+  /* chống mờ khi scale */
+  backface-visibility:hidden;
+  transform:translateZ(0);
+}
 </style>
 </head>
 <body>
@@ -543,16 +561,18 @@ body{
   </div>
 
   <!-- CÔ DÂU & CHÚ RỂ -->
-  <div style="display:flex; justify-content:center; gap:20px; margin-top:25px;">
-    <div>
-      <img src="chu-re.jpg" style="width:120px; border-radius:50%;">
-      <p><b>Chú rể<br>Phêrô Hoàng Anh</b></p>
-    </div>
-    <div>
-      <img src="cd.jpeg" style="width:120px; border-radius:50%;">
-      <p><b>Cô dâu<br>Maria Phạm Nguyệt</b></p>
-    </div>
+<!-- CÔ DÂU & CHÚ RỂ -->
+<div style="display:flex; justify-content:center; gap:20px; margin-top:25px;">
+  <div>
+    <img class="avatar" src="chu-re.jpg" alt="Chú rể Hoàng Anh">
+    <p><b>Chú rể<br>Hoàng Anh</b></p>
   </div>
+
+  <div>
+    <img class="avatar" src="cd.jpeg" alt="Cô dâu Phạm Nguyệt">
+    <p><b>Cô dâu<br>Phạm Nguyệt</b></p>
+  </div>
+</div>
 
   <!-- SONG THÂN -->
   <div style="display:flex;gap:20px;justify-content:space-between;font-size:15px;margin:30px 0;">
