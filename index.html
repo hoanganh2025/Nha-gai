@@ -2,6 +2,10 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
+  <link rel="preload" as="image" href="1.jpg">
+<link rel="preload" as="image" href="2.JPEG">
+<link rel="preload" as="image" href="3.jpg">
+<link rel="preload" as="image" href="4.jpg">
   <h2>THIỆP MỜI </h2>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
@@ -25,10 +29,6 @@ h2{
   color:#7a2f2f; /* đỏ rượu vang */
 }
 
-body{
-  background:#fff8f5;
-}
-
 .btn{
   background:#7a2f2f;
 }
@@ -44,9 +44,6 @@ body{
   display:none;
 }
 
-  .btn.blue{
-  background:#3c6e9b;
-}
   #rsvpPopup{
   position:fixed;
   top:20px;
@@ -66,11 +63,11 @@ body{
   border:1px solid #e2a0a0;
 }
   /* ===== INTRO CINEMATIC ===== */
-.intro-img.show{
+  .intro img.show{
   opacity:1;
   transform:scale(1) translateY(0);
-  filter:blur(0);
 }
+  
 .intro img{
   width:85%;
   max-width:420px;
@@ -109,7 +106,6 @@ body{
   z-index:0;
   pointer-events:none;
 }
-.intro img,
 .intro-text{
   margin-top:20px;
   color:#5a2a2a;
@@ -479,24 +475,41 @@ body{
     height:clamp(180px, 70vw, 240px);
   }
 }
+/* ===== TỐI ƯU CHO MOBILE ===== */
+@media (max-width: 768px){
+
+  /* Tắt blur + glow nặng */
+  .fog-layer,
+  .moon.glow,
+  .moon::after{
+    display:none !important;
+  }
+
+  /* Giảm shadow */
+  .moon{
+    box-shadow:0 0 20px rgba(255,255,255,.3);
+  }
+
+  /* Tắt animation rơi hoa */
+  .flower{
+    display:none !important;
+  }
+
+  /* Giảm số sao */
+  .star-dot.big{
+    display:none;
+  }
+
+  /* Tắt will-change (rất nóng máy) */
+  .album-grid img{
+    will-change:auto;
+  }
+}
 .avatar{
-  width:120px;
-  height:120px;
+  width:180px;
+  height:220px;
   border-radius:50%;
-  object-fit:cover;
-  object-position:center;
-
-  /* 🎨 KHUNG ẢNH */
-  border:4px solid #fff;
-  outline:3px solid #f2b6c1;
-  outline-offset:3px;
-
-  /* ✨ ĐỔ BÓNG */
-  box-shadow:0 6px 14px rgba(0,0,0,.25);
-
-  /* chống mờ khi scale */
-  backface-visibility:hidden;
-  transform:translateZ(0);
+  object-fit:cover;   /* cắt ảnh cho đều, không méo */
 }
 </style>
 </head>
@@ -518,7 +531,11 @@ body{
 
 
 <div class="intro" id="intro">
- <img id="introImg" class="intro-img">
+<img id="introImg" class="intro-img"
+     src="1.jpg"
+     decoding="async"
+     loading="eager"
+     fetchpriority="high">
 <div id="introText" class="intro-text"></div>
 </div>
 <div id="openScreen">
@@ -561,16 +578,14 @@ body{
   </div>
 
   <!-- CÔ DÂU & CHÚ RỂ -->
-<!-- CÔ DÂU & CHÚ RỂ -->
-<div style="display:flex; justify-content:center; gap:20px; margin-top:25px;">
+  <div style="display:flex;justify-content:space-around;text-align:center">
   <div>
-    <img class="avatar" src="chu-re.jpg" alt="Chú rể Hoàng Anh">
-    <p><b>Chú rể<br>Hoàng Anh</b></p>
+    <img src="chu-re.jpg" class="avatar">
+    <p><b>Chú rể<br>Phêrô Hoàng Anh</b></p>
   </div>
-
   <div>
-    <img class="avatar" src="cd.jpeg" alt="Cô dâu Phạm Nguyệt">
-    <p><b>Cô dâu<br>Phạm Nguyệt</b></p>
+    <img src="cd.JPEG" class="avatar">
+    <p><b>Cô dâu<br>Maria Phạm Nguyệt</b></p>
   </div>
 </div>
 
@@ -591,12 +606,12 @@ body{
   <!-- ALBUM -->
   <h2>📷 Khoảnh Khắc Hạnh Phúc</h2>
 <div class="album-grid">
-  <img src="5.jpeg" loading="lazy" onclick="openLightboxByIndex(0)">
-<img src="6.jpg" onclick="openLightboxByIndex(1)">
-<img src="7.jpeg" onclick="openLightboxByIndex(2)">
-<img src="8.jpeg" onclick="openLightboxByIndex(3)">
-<img src="9.jpeg" onclick="openLightboxByIndex(4)">
-<img src="1010.png" onclick="openLightboxByIndex(5)">
+ <img src="5.jpg" loading="lazy" onclick="openLightboxByIndex(0)">
+<img src="6.png" loading="lazy" onclick="openLightboxByIndex(1)">
+<img src="7.jpg" loading="lazy" onclick="openLightboxByIndex(2)">
+<img src="8.PNG" loading="lazy" onclick="openLightboxByIndex(3)">
+<img src="9.jpg" loading="lazy" onclick="openLightboxByIndex(4)">
+<img src="10.PNG" loading="lazy" onclick="openLightboxByIndex(5)">
 </div>
 
 <!-- LỄ -->
@@ -620,6 +635,7 @@ body{
 <a class="btn" target="_blank" href="https://maps.app.goo.gl/imNfpARbGWWLFwrKA?g_st=ipc">🧭 Chỉ đường</a><br>
 <a class="btn blue" target="_blank" href="https://www.google.com/calendar">📅 Thêm vào Google Calendar</a>
 </div>
+
 
 <!-- RSVP -->
 <h2>📩 Xác Nhận Tham Dự</h2>
@@ -825,10 +841,10 @@ async function sendRSVP(e){
 // ------------------- OPEN SCREEN + INTRO -------------------
 
 const story=[
-  {img:"1.jpeg",text:"Từ lần gặp gỡ đầu tiên…"},
-  {img:"2.jpeg",text:"Hai trái tim chung nhịp đập…"},
-  {img:"3.jpeg",text:"Và hôm nay…"},
-  {img:"4.jpeg",text:"Chúng con nên duyên vợ chồng 💍"}
+  {img:"1.jpg",text:"Từ lần gặp gỡ đầu tiên…"},
+  {img:"2.JPEG",text:"Hai trái tim chung nhịp đập…"},
+  {img:"3.jpg",text:"Và hôm nay…"},
+  {img:"4.jpg",text:"Chúng con nên duyên vợ chồng 💍"}
 ];
 story.forEach(s=>{
   const img = new Image();
@@ -1077,3 +1093,4 @@ document.addEventListener("touchstart",()=>{
 </script>
 </body>
 </html>
+
