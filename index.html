@@ -632,7 +632,7 @@ body{
 <div id="countdown">⏳ Đang tính thời gian…</div>
 <a class="btn" target="_blank" href="https://maps.app.goo.gl/vDDYBfEG5AXxQDLs7?g_st=ipc">🧭 Chỉ đường Nhà Thờ</a><br>
 <a href="#" id="addCalendar" class="btn-calendar btn blue">
-  📅 Thêm lịch cưới vào điện thoại
+  📅 Thêm tất cả lịch cưới
 </a>
 </div>
 
@@ -644,7 +644,7 @@ body{
 📍 Tư gia Nhà Gái<br>
 <a class="btn" target="_blank" href="https://maps.app.goo.gl/dEVgkaa1xcpyt4816?g_st=ipc">🧭 Chỉ đường</a><br>
 <a href="#" id="addCalendar" class="btn-calendar btn blue">
-  📅 Thêm lịch cưới vào điện thoại
+  📅 Thêm tất cả lịch cưới
 </a>
 </div>
 <!-- RSVP -->
@@ -705,16 +705,11 @@ document.addEventListener("DOMContentLoaded",()=>{
   btn.addEventListener("click", function(e){
     e.preventDefault();
 
-    const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
-
-    if(isIOS){
-      // iPhone → thêm cả 3 sự kiện bằng .ics
-      window.location.href = "wedding-all.ics";
-    }else{
-      // Android + PC → cũng dùng .ics (ổn định nhất)
-      window.location.href = "wedding-all.ics";
-    }
+    // 🔥 Dùng chung 1 cách cho mọi thiết bị
+    // iPhone, Android, PC đều mở được file .ics
+    window.location.href = "wedding-all.ics";
   });
+});
   const openScreen = document.getElementById("openScreen");
   document.addEventListener("DOMContentLoaded",()=>{
   const layer=document.getElementById("starLayer");
