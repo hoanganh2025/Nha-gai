@@ -2,10 +2,11 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<link rel="preload" as="image" href="1.jpg" fetchpriority="high">
+  <link rel="preload" as="image" href="1.jpg">
 <link rel="preload" as="image" href="2.JPEG">
 <link rel="preload" as="image" href="3.jpg">
 <link rel="preload" as="image" href="4.jpg">
+  <h2>THIỆP MỜI </h2>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
   .couple-name{
@@ -579,7 +580,7 @@ body{
   <!-- CÔ DÂU & CHÚ RỂ -->
   <div style="display:flex;justify-content:space-around;text-align:center">
   <div>
-    <img src="chu-re.JPEG" class="avatar">
+    <img src="chu-re.jpg" class="avatar">
     <p><b>Chú rể<br>Phêrô Hoàng Anh</b></p>
   </div>
   <div>
@@ -634,8 +635,6 @@ body{
 <a class="btn" target="_blank" href="https://maps.app.goo.gl/imNfpARbGWWLFwrKA?g_st=ipc">🧭 Chỉ đường</a><br>
 <a class="btn blue" target="_blank" href="https://www.google.com/calendar">📅 Thêm vào Google Calendar</a>
 </div>
-
-
 <!-- RSVP -->
 <h2>📩 Xác Nhận Tham Dự</h2>
 <div class="card" id="rsvpCard">
@@ -899,7 +898,7 @@ function playStory(i){
 
 // ------------------- COUNTDOWN (UTC+7) -------------------
 const countdown=document.getElementById("countdown");
-const weddingTime = new Date("2026-02-11T16:15:00+07:00").getTime();
+const weddingTime = new Date("2026-02-11T15:30:00+07:00").getTime();
 setInterval(()=>{
   const d=weddingTime-Date.now();
   if(d<=0){countdown.innerHTML="🎉 Lễ cưới đã bắt đầu"; return;}
@@ -1092,4 +1091,3 @@ document.addEventListener("touchstart",()=>{
 </script>
 </body>
 </html>
-
