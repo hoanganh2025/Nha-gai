@@ -622,7 +622,9 @@ body{
 <img src="9.jpg" loading="lazy" onclick="openLightboxByIndex(4)">
 <img src="10.png" loading="lazy" onclick="openLightboxByIndex(5)">
 </div>
-
+<a href="wedding-all.ics" class="btn-calendar">
+  📅 Thêm tất cả lịch cưới
+</a>
 <!-- LỄ -->
 <h2>💒 Lễ Thành Hôn</h2>
 <div class="card">
@@ -695,6 +697,24 @@ body{
 </div>
 
 <script>
+document.getElementById("addCalendar").addEventListener("click", function(e){
+  e.preventDefault();
+
+  const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+  if(isIOS){
+    // iPhone → thêm cả 3 sự kiện
+    window.location.href = "wedding-all.ics";
+  }else{
+    // Android → Google Calendar (sự kiện chính)
+    window.location.href =
+    "https://calendar.google.com/calendar/render?action=TEMPLATE" +
+    "&text=Lễ+cưới+Hoàng+Anh+%26+Phạm+Thị+Nguyệt" +
+    "&dates=20260211T161500/20260211T181500" +
+    "&location=Nhà+thờ+Phúc+Thành" +
+    "&details=Trân+trọng+kính+mời+bạn+đến+dự+lễ+cưới";
+  }
+});
   const openScreen = document.getElementById("openScreen");
   document.addEventListener("DOMContentLoaded",()=>{
   const layer=document.getElementById("starLayer");
