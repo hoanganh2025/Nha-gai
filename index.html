@@ -208,7 +208,7 @@ body{
   backface-visibility:hidden;
   transform:translateZ(0);
   will-change:transform;
-
+ image-rendering:auto;  
   transition:transform .35s ease;
 }
 
@@ -223,9 +223,8 @@ body{
     filter:contrast(1.05) saturate(1.05);
   }
 }
-.album-grid img{
-  image-rendering:auto;
-}
+
+
 
 /* ===== LIGHTBOX ===== */
 #lightbox{
@@ -510,12 +509,16 @@ body{
   height:220px;
   border-radius:16px;
   object-fit:cover;
-  image-rendering:auto;
-  backface-visibility:hidden;
-  transform:translateZ(0);
-  filter:none;
+
+  /* ❌ bỏ GPU hack */
+  transform:none;
+  backface-visibility:visible;
   will-change:auto;
+
+  /* tăng nét */
+  image-rendering:auto;
 }
+
 
 </style>
 </head>
